@@ -152,16 +152,16 @@ public class Main {
             scanner.nextLine();
             switch (choice) {
                 case 1:
-                    System.out.println("Add a Book");
+                    addBook(scanner);
                     break;
                 case 2:
-                    System.out.println("Remove a Book");
+                    removeBook(scanner);
                     break;
                 case 3:
                     library.viewAllBooks();
                     break;
                 case 4:
-                    System.out.println("Search for a Book");
+                    searchBook(scanner);
                     break;
                 case 5:
                     System.out.println("View All Users");
@@ -189,5 +189,34 @@ public class Main {
 
         library.populateBooks(existingBooks);
 
+    }
+
+    private static void addBook(Scanner scanner) {
+        System.out.println("Enter title: ");
+        String title = scanner.nextLine();
+
+        System.out.println("Enter author: ");
+        String author = scanner.nextLine();
+
+        System.out.println("Enter genre: ");
+        String genre = scanner.nextLine();
+
+        // Generate book ID
+        Book lastBook = library.getBooks().get(library.getBooks().size() - 1);
+        String bookID = String.valueOf(lastBook.getBookID() + 1);
+        Book newBook = new Book(bookID, title, author, genre, true);
+        library.addBook(newBook);
+    }
+
+    private static void removeBook(Scanner scanner) {
+        System.out.println("Enter ID of book to be removed: ");
+        String bookID = scanner.nextLine();
+        library.removeBook(bookID);
+    }
+
+    private static void searchBook(Scanner scanner) {
+        System.out.println("Enter title or author: ");
+        String keyword = scanner.nextLine();
+        library.searchBook(keyword);
     }
 }

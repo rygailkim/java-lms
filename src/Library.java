@@ -7,6 +7,12 @@ public class Library {
     public Library() {
         books = new ArrayList<>();
     }
+
+    public ArrayList<Book> getBooks(){
+        return books;
+    }
+
+
     // Add a new book
     public void addBook(Book book) {
         books.add(book);
@@ -25,19 +31,36 @@ public class Library {
     }
 
     // Remove a book by ID
+    public void removeBook (String bookID) {
+        System.out.println("Removing " + bookID);
+        books.removeIf(book -> book.getBookID().equals(bookID));
+    }
 
     // View all books
-    public void viewAllBooks() {
+    public ArrayList<Book> viewAllBooks() {
         if (books.isEmpty()) {
             System.out.println("No books available in the library.");
+            return null;
         } else {
             for (Book book : books) {
                 System.out.println(book);
             }
         }
+
+        return books;
     }
 
     // Search for a book by title or author
+    public Book searchBook(String keyword) {
+        for (Book book : books) {
+            if (book.getTitle().toLowerCase().contains(keyword.toLowerCase()) || book.getAuthor().toLowerCase().contains(keyword.toLowerCase())) {
+                System.out.println(book);
+                return book;
+            }
+        }
 
+        System.out.println("Book is not in library.");
+        return null;
+    }
 
 }
