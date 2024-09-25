@@ -19,6 +19,7 @@ public class User {
     public String getUserID() { return userID; }
     public String getName() { return name; }
     public String getPassword() { return password; }
+    public boolean isAdmin() { return isAdmin; }
     public ArrayList<Book> getBorrowedBooks() { return borrowedBooks; }
 
 
