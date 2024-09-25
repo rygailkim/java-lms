@@ -33,4 +33,9 @@ public class Book {
     public void setAvailable(boolean isAvailable) {
         this.isAvailable = isAvailable;
     }
+
+    @Override
+    public String toString() {
+        return "ID: " + bookID + ", Title: \"" + title + "\", Author: " + author + ", Genre: " + genre + ", Available: " + isAvailable;
+    }
 }

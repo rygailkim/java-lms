@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -5,6 +6,7 @@ public class Main {
     private static Authentication auth = new Authentication();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        populateLibrary();
 
         System.out.println("Welcome to the Library Management System!");
 
@@ -99,7 +101,7 @@ public class Main {
             scanner.nextLine();
             switch (choice) {
                 case 1:
-                    System.out.println("View all books");
+                    library.viewAllBooks();
                     break;
                 case 2:
                     System.out.println("Search for a book");
@@ -156,7 +158,7 @@ public class Main {
                     System.out.println("Remove a Book");
                     break;
                 case 3:
-                    System.out.println("View All Books");
+                    library.viewAllBooks();
                     break;
                 case 4:
                     System.out.println("Search for a Book");
@@ -175,5 +177,17 @@ public class Main {
                     System.out.println("Invalid choice. Try again.");
             }
         }
+    }
+
+    private static void populateLibrary() {
+        ArrayList<Book> existingBooks = new ArrayList<>();
+        existingBooks.add(new Book("1", "To Kill a Mockingbird", "Harper Lee", "Fiction", true));
+        existingBooks.add(new Book("2", "1984", "George Orwell", "Dystopian", true));
+        existingBooks.add(new Book("3", "The Great Gatsby", "F. Scott Fitzgerald", "Fiction", true));
+        existingBooks.add(new Book("4", "Moby Dick", "Herman Melville", "Adventure", true));
+        existingBooks.add(new Book("5", "Pride and Prejudice", "Jane Austen", "Romance", true));
+
+        library.populateBooks(existingBooks);
+
     }
 }
