@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class Main {
+    private static Library library = new Library();
+    private static Authentication auth = new Authentication();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -25,12 +27,13 @@ public class Main {
                 }
             } while (!validInput);
 
-            switch(choice) {
+            scanner.nextLine();
+            switch (choice) {
                 case 1:
-                    System.out.println("Logging in...");
+                    userLogin(scanner);
                     break;
                 case 2:
-                    System.out.println("Registering...");
+                    registerUser(scanner);
                     break;
                 case 3:
                     System.exit(0);
@@ -38,5 +41,29 @@ public class Main {
                     System.out.println("Invalid choice. Try again.");
             }
         }
+    }
+
+    private static void userLogin(Scanner scanner) {
+        System.out.print("Enter user ID: ");
+        String userID = scanner.nextLine();
+
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
+
+        User user = auth.userLogin(userID, password);
+        if (user != null) {
+            System.out.println("Welcome " + user.getName() + "!");
+        }
+    }
+
+    private static void registerUser(Scanner scanner) {
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
+
+        User newUser = auth.registerUser(name, password);
+        System.out.println("Registration successful! Your User ID is: " + newUser.getUserID());
     }
 }
