@@ -20,13 +20,35 @@ public class User {
     public String getName() { return name; }
     public String getPassword() { return password; }
     public boolean isAdmin() { return isAdmin; }
-    public ArrayList<Book> getBorrowedBooks() { return borrowedBooks; }
+    public ArrayList<Book> getBorrowedBooks() {
+        if (borrowedBooks.isEmpty()) {
+            System.out.println("No books available in the library.");
+            return null;
+        } else {
+            for (Book book : borrowedBooks) {
+                System.out.println(book);
+            }
+        }
+
+        return borrowedBooks;
+    }
 
 
     // Borrow book
+    public void borrowBook(Book book) {
+        borrowedBooks.add(book);
+        book.setAvailable(false);
+    }
 
     // Return book
+    public void returnBook(Book book) {
+        borrowedBooks.remove(book);
+        book.setAvailable(true);
+    }
 
-    // Get borrowed books
+    @Override
+    public String toString() {
+        return "User: " + name + "(ID: " + userID + ")";
+    }
 
 }

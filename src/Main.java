@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -104,16 +105,16 @@ public class Main {
                     library.viewAllBooks();
                     break;
                 case 2:
-                    System.out.println("Search for a book");
+                    searchBook(scanner);
                     break;
                 case 3:
-                    System.out.println("Borrow book");
+                    borrowBook(scanner, user);
                     break;
                 case 4:
-                    System.out.println("Return book");
+                    returnBook(scanner, user);
                     break;
                 case 5:
-                    System.out.println("View borrowed books");
+                    user.getBorrowedBooks();
                     break;
                 case 6:
                     System.out.println("Logging out...");
@@ -133,9 +134,7 @@ public class Main {
             System.out.println("2. Remove a Book");
             System.out.println("3. View All Books");
             System.out.println("4. Search for a Book");
-            System.out.println("5. View All Users");
-            System.out.println("6. Search for a User");
-            System.out.println("7. Logout\n");
+            System.out.println("5. Logout\n");
 
             System.out.print("Please select an option: ");
             boolean validInput = false;
@@ -164,12 +163,6 @@ public class Main {
                     searchBook(scanner);
                     break;
                 case 5:
-                    System.out.println("View All Users");
-                    break;
-                case 6:
-                    System.out.println("Search for a User");
-                    break;
-                case 7:
                     System.out.println("Logging out...");
                     isLoggedIn = false;
                     break;
@@ -218,5 +211,35 @@ public class Main {
         System.out.println("Enter title or author: ");
         String keyword = scanner.nextLine();
         library.searchBook(keyword);
+    }
+
+    private static void borrowBook(Scanner scanner, User user) {
+        System.out.println("Enter Book ID to borrow:");
+        String bookID = scanner.nextLine();
+        Book book = library.getBookByID(bookID);
+        if (book != null) {
+            if (book.isAvailable()) {
+                user.borrowBook(book);
+                System.out.println(book.getTitle() + " borrowed successfully!");
+            } else {
+                System.out.println("Book is currently not available.");
+            }
+        } else {
+            System.out.println("Book ID is invalid.");
+        }
+    }
+
+    private static void returnBook(Scanner scanner, User user) {
+        System.out.println("Enter Book ID to return:");
+        String bookID = scanner.nextLine();
+        for (Book book: user.getBorrowedBooks()) {
+            if (library.getBookByID(bookID) != null) {
+                user.returnBook(book);
+                System.out.println(book.getTitle() + " returned successfully!");
+                return;
+            }
+        }
+
+        System.out.println("Invalid Book ID.");
     }
 }

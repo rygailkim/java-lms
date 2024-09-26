@@ -35,6 +35,16 @@ public class Library {
         System.out.println("Removing " + bookID);
         books.removeIf(book -> book.getBookID().equals(bookID));
     }
+    
+    // Get book by ID
+    public Book getBookByID (String bookID) {
+        for (Book book : books) {
+            if (book.getBookID().equals(bookID)) {
+                return book;
+            }
+        }
+        return null;
+    }
 
     // View all books
     public ArrayList<Book> viewAllBooks() {
